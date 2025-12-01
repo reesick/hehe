@@ -4,49 +4,43 @@ using namespace std;
 long long calls = 0, muls = 0, adds = 0;
 
 long long karatsuba(long long x, long long y) {
-
-    calls++; // ← Every recursive call counts
-
-    // BASE CASE (single digit multiplication)
-    if (x < 10 || y < 10) {
-        muls++;                 // Only 1 multiplication performed
-        return x * y;
+    calls++;
+    if (x<10 && y <10 )
+    {muls++;
+        return x*y;
     }
 
-    // Number of digits
-    int digits = max((int)log10(x) + 1, (int)log10(y) + 1);
-    int m = digits / 2;
+    int n = max((int)log10(x)+1,(int)log10(y)+1);
+    int m = n/2;
+    long long pwr = pow(10,m);
 
-    long long p = pow(10, m);
+    long long a = x /pwr ;
+    long long b = x %pwr ;
+    long long c = y /pwr ;
+    long long d = y %pwr ;
 
-    // Splitting numbers
-    long long a = x / p;
-    long long b = x % p;
-    long long c = y / p;
-    long long d = y % p;
+    long long ac = karatsuba(a,c);
+    long long bd = karatsuba(b,d);
+    long long z = karatsuba(a+b, c+d);
 
-    // 3 Recursive multiplications (core of Karatsuba)
-    long long ac = karatsuba(a, c);
-    long long bd = karatsuba(b, d);
-    long long z  = karatsuba(a + b, c + d);
+    long long mid = z- ac -bd;
+    adds+=2;
 
-    // ad + bc extraction
-    long long ad_bc = z - ac - bd;
-    adds += 2;   // (z - ac - bd) ← 2 additions here
+    long long ad_bc = ac * pow(10,2*m) + bd + mid * pow(10,m) ;
 
-    // Final result combination
-    long long result = ac * pow(10, 2 * m) + ad_bc * pow(10, m) + bd;
-    adds += 2;   // 2 final additions in formula
+    adds+=2;
 
-    return result;
+    return ad_bc;
+
+    
 }
 
 int main() {
     long long x, y;
     cin >> x >> y;
 
-    cout << "\nResult = " << karatsuba(x, y) << endl;
-    cout << "\n📌 Recursive Calls = " << calls << endl;
-    cout << "📌 Multiplications = " << muls  << endl;
-    cout << "📌 Additions       = " << adds  << endl;
+    cout << "\nResult = " << karatsuba(x,y) << endl;
+    cout << "Recursive Calls = " << calls << endl;
+    cout << "Multiplications = " << muls  << endl;
+    cout << "Additions       = " << adds  << endl;
 }
