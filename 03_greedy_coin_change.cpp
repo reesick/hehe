@@ -2,19 +2,24 @@
 using namespace std;
 
 int main() {
-    int n, amount;
-    cin >> n >> amount;
+    int arr[] = {2000, 500, 200, 100, 50 ,20 ,10 ,5 ,2 ,1};
+    int n = 10;
 
-    vector<int> coins(n);
-    for (int i = 0; i < n; i++) cin >> coins[i];
+    int amnt;
+    cout << "enter amnt : "<< endl;
+    cin >> amnt;
 
-    sort(coins.rbegin(), coins.rend());
-
-    for (int c : coins) {
-        if (amount >= c) {
-            int count = amount / c;
-            cout << c << " × " << count << "\n";
-            amount %= c;
+    for (int i = 0; i < n; i++)
+    {
+        int count = amnt/arr[i] ;
+        if (count > 0)
+        {
+           cout << arr[i] << " x " << count << endl;
+            amnt %= arr[i];
         }
+         
     }
+    return 0 ;
+    
+
 }

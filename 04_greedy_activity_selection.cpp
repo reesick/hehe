@@ -2,24 +2,24 @@
 using namespace std;
 
 int main() {
-    int n;
-    cin >> n;
 
-    vector<pair<int,int>> act(n);
-    for(int i = 0; i < n; i++)
-        cin >> act[i].first >> act[i].second; // start, end
+    
+    int start[] = {1, 3, 0, 5, 8, 5};
+    int endt[]  = {2, 4, 6, 7, 9, 9};
+    int n = 6;
 
-    sort(act.begin(), act.end(), [](auto &a, auto &b){
-        return a.second < b.second;
-    });
+    int last_end = endt[0];
+    cout << start[0] << " " << endt[0] <<endl;
 
-    cout << act[0].first << " " << act[0].second << "\n";
-    int last = act[0].second;
-
-    for(int i = 1; i < n; i++) {
-        if(act[i].first >= last) {
-            cout << act[i].first << " " << act[i].second << "\n";
-            last = act[i].second;
+    for (int i = 1; i <= n; i++)
+    {
+        if (last_end < start[i])
+        {
+            /* code */
         }
+        
     }
+    
+
+    return 0;
 }
