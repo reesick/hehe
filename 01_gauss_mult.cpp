@@ -1,27 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
+long long calls , muls ,adds;
 
-long long calls = 0, adds = 0, muls = 0;
-
-long long gauss(long long a, long long b) {
+long long gauss(long long a , long long b){
+    
     calls++;
 
-    if (b == 1) {
+
+    if (b == 1)
+    {   
         muls++;
         return a;
+
     }
 
-    long long half = gauss(a, b / 2);
+    long long half = gauss(a,b/2);
     adds++;
-
-    if (b % 2 == 0) {
+    if(b%2 == 0){
+        
         muls++;
         return half + half;
-    } else {
-        muls += 2;
+    }
+    else{
+       
         adds++;
+        muls++;
         return half + half + a;
     }
+
 }
 
 int main() {
